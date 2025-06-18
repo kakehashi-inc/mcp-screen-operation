@@ -1,3 +1,8 @@
-pillow
+
+Pillow
+mcp-sdk
+mss
 pylint
 pylint-plugin-utils
+pylint-mcp
+python-xlib

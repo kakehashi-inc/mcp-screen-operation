@@ -2,7 +2,7 @@
 name = "mcp-screen-operation"
 version = "0.1.0"
 description = "MCP server for screen and window operations."
-authors = [{ name = "Yendo", email = "yendo@example.com" }]
+authors = [{ name = "kakehashi", email = "develop@kakehashi-services.com" }]
 readme = "README.md"
 requires-python = ">=3.8"
 license = { file = "LICENSE" }
