@@ -9,6 +9,7 @@ license = { file = "LICENSE" }
 
 dependencies = [
     "mcp>=1.9.4",
+    "fastmcp>=2.3.0",
     "mss",
     "Pillow",
 ]
