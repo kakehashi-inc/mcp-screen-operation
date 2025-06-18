@@ -18,6 +18,12 @@ dependencies = [
 linux = ["python-xlib"]
 windows = ["pywin32"]
 macos = ["pyobjc-framework-Quartz", "pyobjc-framework-Cocoa"]
+dev = [
+    "pylint",
+    "pylint-plugin-utils",
+    "pylint-mcp",
+    "black"
+]
 
 [project.scripts]
 screen-operation-server = "screen_operation_server.main:main"

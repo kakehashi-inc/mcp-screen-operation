@@ -1,7 +1,0 @@
-fastmcp
-mcp
-mss
-Pillow
-pylint
-pylint-plugin-utils
-pylint-mcp

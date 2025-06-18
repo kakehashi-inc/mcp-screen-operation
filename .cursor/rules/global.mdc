@@ -108,13 +108,8 @@ alwaysApply: true
 
 ---
 
-# 技術スタック
-[stack.md](mdc:.cursor/rules/stack.md)
-
----
-
 # 環境等基礎知識
-[README.md](mdc:README.md)
+[README-ja.md](mdc:README-ja.md)
 
 ---
 
