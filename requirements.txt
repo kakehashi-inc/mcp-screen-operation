@@ -1,8 +1,6 @@
-
-Pillow
 mcp
 mss
+Pillow
 pylint
 pylint-plugin-utils
 pylint-mcp
-python-xlib
