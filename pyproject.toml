@@ -1,0 +1,46 @@
+[project]
+name = "mcp-screen-operation"
+version = "0.1.0"
+description = "MCP server for screen and window operations."
+authors = [{ name = "Yendo", email = "yendo@example.com" }]
+readme = "README.md"
+requires-python = ">=3.8"
+license = { file = "LICENSE" }
+
+dependencies = [
+    "mcp-sdk>=1.9.4",
+    "mss",
+    "Pillow",
+]
+
+[project.optional-dependencies]
+linux = ["python-xlib"]
+windows = ["pywin32"]
+macos = ["pyobjc-framework-Quartz", "pyobjc-framework-Cocoa"]
+
+[project.scripts]
+screen-operation-server = "screen_operation_server.main:main"
+
+[tool.black]
+line-length = 160
+exclude = 'tests/'
+
+[tool.pylint.MASTER]
+load-plugins = "pylint_mcp"
+
+[tool.pylint.FORMAT]
+max-line-length = 160
+
+[tool.pylint.DESIGN]
+max-args = 10
+max-locals = 25
+max-branches = 20
+max-statements = 60
+
+[tool.pylint.messages_control]
+disable = [
+    "W0718",
+]
+
+[tool.setuptools.packages.find]
+where = ["src"]
