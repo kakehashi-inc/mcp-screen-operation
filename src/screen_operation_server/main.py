@@ -1,17 +1,16 @@
-import asyncio
-import platform
+import argparse
 from typing import Any, Dict, List
 
-import mcp
-from mcp.server import InitializationOptions, NotificationOptions, Server
+from fastmcp import FastMCP
 
 from . import operations
+from .window_manager import WindowManagerFactory
 
-# Create the MCP server instance
-mcp_server = Server("screen-operation-server", "v0.1.0")
+# FastMCPインスタンスを作成
+mcp = FastMCP("screen-operation-server")
 
 
-@mcp_server.tool()
+@mcp.tool()
 async def get_screen_info() -> Dict[str, Any]:
     """
     Retrieves information about connected displays.
@@ -22,7 +21,7 @@ async def get_screen_info() -> Dict[str, Any]:
     return operations.get_screen_info()
 
 
-@mcp_server.tool()
+@mcp.tool()
 async def capture_screen_by_number(monitor_number: int) -> Dict[str, Any]:
     """
     Captures a screenshot of the specified monitor.
@@ -36,7 +35,7 @@ async def capture_screen_by_number(monitor_number: int) -> Dict[str, Any]:
     return operations.capture_screen_by_number(monitor_number)
 
 
-@mcp_server.tool()
+@mcp.tool()
 async def capture_all_screens() -> Dict[str, Any]:
     """
     Captures all connected monitors and stitches them into a single image.
@@ -47,7 +46,7 @@ async def capture_all_screens() -> Dict[str, Any]:
     return operations.capture_all_screens()
 
 
-@mcp_server.tool()
+@mcp.tool()
 async def get_window_list() -> List[Dict[str, Any]]:
     """
     Retrieves a list of currently open windows.
@@ -58,7 +57,7 @@ async def get_window_list() -> List[Dict[str, Any]]:
     return operations.get_window_list()
 
 
-@mcp_server.tool()
+@mcp.tool()
 async def capture_window(window_id: int) -> Dict[str, Any]:
     """
     Captures a screenshot of the specified window.
@@ -72,54 +71,35 @@ async def capture_window(window_id: int) -> Dict[str, Any]:
     return operations.capture_window(window_id)
 
 
-async def run_server():
-    """Runs the MCP server over stdio."""
-    async with mcp.server.stdio.stdio_server() as (read_stream, write_stream):
-        await mcp_server.run(
-            read_stream,
-            write_stream,
-            InitializationOptions(
-                server_name=mcp_server.name,
-                server_version=mcp_server.version,
-                capabilities=mcp_server.get_capabilities(
-                    notification_options=NotificationOptions(),
-                    experimental_capabilities={},
-                ),
-            ),
-        )
-
-
 def main():
     """
-    Checks for platform-specific dependencies and starts the server.
+    Main entry point that supports multiple transport protocols.
     """
-    system = platform.system()
-    missing_dependency = False
-    if system == "Linux":
-        try:
-            from Xlib import display  # noqa: F401
-        except ImportError:
-            print("Error: python-xlib is not installed. Please run 'pip install \"mcp-screen-operation[linux]\"'")
-            missing_dependency = True
-    elif system == "Windows":
-        try:
-            import win32gui  # noqa: F401
-        except ImportError:
-            print("Error: pywin32 is not installed. Please run 'pip install \"mcp-screen-operation[windows]\"'")
-            missing_dependency = True
-    elif system == "Darwin":
-        try:
-            from Quartz import CGWindowListCopyWindowInfo  # noqa: F401
-        except ImportError:
-            print("Error: PyObjC is not installed. Please run 'pip install \"mcp-screen-operation[macos]\"'")
-            missing_dependency = True
+    # プラットフォーム依存関係をチェック
+    WindowManagerFactory.check_platform_dependencies()
 
-    if missing_dependency:
-        return
+    # コマンドライン引数を解析
+    parser = argparse.ArgumentParser(description="MCP Screen Operation Server")
+    parser.add_argument("--transport", choices=["stdio", "sse", "streamable-http"], default="stdio", help="Transport protocol to use (default: stdio)")
+    parser.add_argument("--port", type=int, default=8080, help="Port for HTTP-based transports (default: 8080)")
+    parser.add_argument("--host", default="127.0.0.1", help="Host for HTTP-based transports (default: 127.0.0.1)")
 
-    print(f"Starting {mcp_server.name} v{mcp_server.version}...")
+    args = parser.parse_args()
+
+    print(f"Starting {mcp.name} v0.1.0 with {args.transport} transport...")
+
     try:
-        asyncio.run(run_server())
+        if args.transport == "stdio":
+            # STDIOトランスポート（デフォルト）
+            mcp.run(transport="stdio")
+        elif args.transport == "sse":
+            # SSEトランスポート
+            print(f"SSE endpoint: http://{args.host}:{args.port}/sse")
+            mcp.run(transport="sse", host=args.host, port=args.port)
+        elif args.transport == "streamable-http":
+            # Streamable HTTPトランスポート（推奨）
+            print(f"Streamable HTTP endpoint: http://{args.host}:{args.port}/mcp")
+            mcp.run(transport="streamable-http", host=args.host, port=args.port)
     except KeyboardInterrupt:
         print("Server stopped.")
 
