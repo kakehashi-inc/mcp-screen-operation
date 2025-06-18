@@ -1,6 +1,6 @@
 
 Pillow
-mcp-sdk
+mcp
 mss
 pylint
 pylint-plugin-utils
