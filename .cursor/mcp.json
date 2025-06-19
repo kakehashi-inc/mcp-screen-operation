@@ -1,3 +1,7 @@
 {
-  "mcpServers": {}
+  "mcpServers": {
+    "screen-operation": {
+      "url": "http://localhost:8201/sse"
+    }
+  }
 }
