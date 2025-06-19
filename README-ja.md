@@ -13,9 +13,10 @@ FastMCPで構築され、複数のトランスポートプロトコルをサポ�
 - 開いているすべてのウィンドウのリスト取得
 - 特定のウィンドウのスクリーンショット撮影
 
-### 自動操作機能（将来の拡張予定）
-- pyautoguiによるクロスプラットフォーム自動操作機能
-- マウスとキーボードの自動操作サポート
+### 自動操作機能
+- マウスの移動、クリック、ドラッグ、スクロール操作
+- キーボードによる文字入力、キー押下、ホットキー組み合わせ
+- 現在のマウス位置とスクリーン情報の取得
 
 ### トランスポートプロトコル
 - **STDIO** (デフォルト) - ローカルツールとClaude Desktopの統合用
@@ -205,6 +206,39 @@ fastmcp dev src/screen_operation_server/main.py
 - **`capture_window(window_id: int)`**: 指定されたウィンドウのスクリーンショットを撮影
   - 引数: `window_id` - キャプチャするウィンドウID
   - 戻り値: ウィンドウのBase64エンコードされたPNG画像
+
+### マウス自動操作
+- **`mouse_move(x: int, y: int, duration: float = 0.0)`**: マウスカーソルを移動
+  - 引数: `x`, `y` - 移動先の座標; `duration` - 移動時間（秒）
+  - 戻り値: 新しいマウス位置
+
+- **`mouse_click(x: int, y: int, button: str = "left", clicks: int = 1)`**: マウスをクリック
+  - 引数: `x`, `y` - クリック座標; `button` - マウスボタン（'left', 'right', 'middle'）; `clicks` - クリック回数
+  - 戻り値: クリック情報
+
+- **`mouse_drag(start_x: int, start_y: int, end_x: int, end_y: int, duration: float = 0.5)`**: マウスをドラッグ
+  - 引数: 開始位置と終了位置の座標; `duration` - ドラッグ時間
+  - 戻り値: ドラッグ操作の詳細
+
+- **`mouse_scroll(clicks: int, x: int = None, y: int = None)`**: マウスホイールをスクロール
+  - 引数: `clicks` - スクロール量（正の値=上、負の値=下）; オプションの座標
+  - 戻り値: スクロール情報
+
+- **`get_mouse_position()`**: 現在のマウス位置を取得
+  - 戻り値: 現在の座標とスクリーンサイズ
+
+### キーボード自動操作
+- **`keyboard_type(text: str, interval: float = 0.0)`**: テキストを入力
+  - 引数: `text` - 入力するテキスト; `interval` - キーストローク間の遅延
+  - 戻り値: 入力情報
+
+- **`keyboard_press(key: str)`**: 単一のキーを押下
+  - 引数: `key` - キー名（例: 'enter', 'tab', 'space', 'a'）
+  - 戻り値: キー押下情報
+
+- **`keyboard_hotkey(*keys: str)`**: ホットキーの組み合わせを押下
+  - 引数: `*keys` - 同時に押すキー（例: 'ctrl', 'c'）
+  - 戻り値: ホットキー情報
 
 ## 統合例
 

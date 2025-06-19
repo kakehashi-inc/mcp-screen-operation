@@ -13,9 +13,10 @@ A modern Model Context Protocol (MCP) server for cross-platform screen and windo
 - Get a list of all open windows
 - Capture screenshots of specific windows
 
-### Automation Operations (Future Enhancement)
-- Cross-platform automation capabilities with pyautogui
-- Mouse and keyboard automation support
+### Automation Operations
+- Mouse movement, clicking, dragging, and scrolling
+- Keyboard typing, key presses, and hotkey combinations
+- Get current mouse position and screen information
 
 ### Transport Protocols
 - **STDIO** (default) - For local tools and Claude Desktop integration
@@ -205,6 +206,39 @@ fastmcp dev src/screen_operation_server/main.py
 - **`capture_window(window_id: int)`**: Captures a screenshot of the specified window
   - Args: `window_id` - The window ID to capture
   - Returns: Base64-encoded PNG image of the window
+
+### Mouse Automation
+- **`mouse_move(x: int, y: int, duration: float = 0.0)`**: Moves the mouse cursor
+  - Args: `x`, `y` - Target coordinates; `duration` - Movement duration in seconds
+  - Returns: New mouse position
+
+- **`mouse_click(x: int, y: int, button: str = "left", clicks: int = 1)`**: Clicks the mouse
+  - Args: `x`, `y` - Click coordinates; `button` - Mouse button ('left', 'right', 'middle'); `clicks` - Number of clicks
+  - Returns: Click information
+
+- **`mouse_drag(start_x: int, start_y: int, end_x: int, end_y: int, duration: float = 0.5)`**: Drags the mouse
+  - Args: Start and end coordinates; `duration` - Drag duration
+  - Returns: Drag operation details
+
+- **`mouse_scroll(clicks: int, x: int = None, y: int = None)`**: Scrolls the mouse wheel
+  - Args: `clicks` - Scroll amount (positive=up, negative=down); Optional coordinates
+  - Returns: Scroll information
+
+- **`get_mouse_position()`**: Gets current mouse position
+  - Returns: Current coordinates and screen size
+
+### Keyboard Automation
+- **`keyboard_type(text: str, interval: float = 0.0)`**: Types text
+  - Args: `text` - Text to type; `interval` - Delay between keystrokes
+  - Returns: Typing information
+
+- **`keyboard_press(key: str)`**: Presses a single key
+  - Args: `key` - Key name (e.g., 'enter', 'tab', 'space', 'a')
+  - Returns: Key press information
+
+- **`keyboard_hotkey(*keys: str)`**: Presses hotkey combination
+  - Args: `*keys` - Keys to press together (e.g., 'ctrl', 'c')
+  - Returns: Hotkey information
 
 ## Integration Examples
 

@@ -3,7 +3,7 @@ from typing import Any, Dict, List
 
 from fastmcp import FastMCP
 
-from . import operations
+from . import operations, automation
 from .window_manager import WindowManagerFactory
 
 # FastMCPインスタンスを作成
@@ -69,6 +69,129 @@ async def capture_window(window_id: int) -> Dict[str, Any]:
         A dictionary containing the base64-encoded image and its mime type.
     """
     return operations.capture_window(window_id)
+
+
+# Mouse automation tools
+@mcp.tool()
+async def mouse_move(x: int, y: int, duration: float = 0.0) -> Dict[str, Any]:
+    """
+    Moves the mouse cursor to the specified coordinates.
+
+    Args:
+        x: The x-coordinate to move to.
+        y: The y-coordinate to move to.
+        duration: Time in seconds for the movement (0 = instant).
+
+    Returns:
+        A dictionary with the new mouse position.
+    """
+    return automation.mouse_move(x, y, duration)
+
+
+@mcp.tool()
+async def mouse_click(x: int, y: int, button: str = "left", clicks: int = 1) -> Dict[str, Any]:
+    """
+    Clicks the mouse at the specified coordinates.
+
+    Args:
+        x: The x-coordinate to click at.
+        y: The y-coordinate to click at.
+        button: Mouse button to click ('left', 'right', 'middle').
+        clicks: Number of clicks (1 for single, 2 for double).
+
+    Returns:
+        A dictionary with click information.
+    """
+    return automation.mouse_click(x, y, button, clicks)
+
+
+@mcp.tool()
+async def mouse_drag(start_x: int, start_y: int, end_x: int, end_y: int, duration: float = 0.5) -> Dict[str, Any]:
+    """
+    Drags the mouse from start coordinates to end coordinates.
+
+    Args:
+        start_x: Starting x-coordinate.
+        start_y: Starting y-coordinate.
+        end_x: Ending x-coordinate.
+        end_y: Ending y-coordinate.
+        duration: Time in seconds for the drag operation.
+
+    Returns:
+        A dictionary with drag information.
+    """
+    return automation.mouse_drag(start_x, start_y, end_x, end_y, duration)
+
+
+@mcp.tool()
+async def mouse_scroll(clicks: int, x: int = None, y: int = None) -> Dict[str, Any]:
+    """
+    Scrolls the mouse wheel.
+
+    Args:
+        clicks: Number of scroll clicks (positive = up, negative = down).
+        x: Optional x-coordinate to scroll at (None = current position).
+        y: Optional y-coordinate to scroll at (None = current position).
+
+    Returns:
+        A dictionary with scroll information.
+    """
+    return automation.mouse_scroll(clicks, x, y)
+
+
+# Keyboard automation tools
+@mcp.tool()
+async def keyboard_type(text: str, interval: float = 0.0) -> Dict[str, Any]:
+    """
+    Types the specified text.
+
+    Args:
+        text: Text to type.
+        interval: Interval between keystrokes in seconds.
+
+    Returns:
+        A dictionary with typing information.
+    """
+    return automation.keyboard_type(text, interval)
+
+
+@mcp.tool()
+async def keyboard_press(key: str) -> Dict[str, Any]:
+    """
+    Presses a single key.
+
+    Args:
+        key: Key to press (e.g., 'enter', 'tab', 'space', 'a', '1').
+
+    Returns:
+        A dictionary with key press information.
+    """
+    return automation.keyboard_press(key)
+
+
+@mcp.tool()
+async def keyboard_hotkey(*keys: str) -> Dict[str, Any]:
+    """
+    Presses a keyboard hotkey combination.
+
+    Args:
+        *keys: Keys to press together (e.g., 'ctrl', 'c' for Ctrl+C).
+
+    Returns:
+        A dictionary with hotkey information.
+    """
+    return automation.keyboard_hotkey(*keys)
+
+
+@mcp.tool()
+async def get_mouse_position() -> Dict[str, Any]:
+    """
+    Gets the current mouse position.
+
+    Returns:
+        A dictionary with current mouse coordinates and screen size.
+    """
+    return automation.get_mouse_position()
 
 
 def main():
