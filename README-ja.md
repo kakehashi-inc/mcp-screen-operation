@@ -185,6 +185,25 @@ FastMCPの開発モードをインスペクターと共に使用：
 fastmcp dev src/screen_operation_server/main.py
 ```
 
+### MCP Inspector
+
+MCP Inspectorを使用してMCPサーバーをインタラクティブにテストおよびデバッグできます：
+
+```bash
+# MCP Inspectorをインストールして実行
+npx @modelcontextprotocol/inspector
+
+# サーバーに接続：
+# STDIOトランスポートの場合: screen-operation-server
+# HTTPトランスポートの場合: http://localhost:8205/mcp (または設定したポート)
+```
+
+MCP Inspectorは以下の機能を提供するWebベースのインターフェースです：
+- すべての利用可能なツールのテスト
+- ツールスキーマとドキュメントの表示
+- サーバーレスポンスのデバッグ
+- サーバーログの監視
+
 ## 利用可能なツール
 
 ### スクリーン情報
