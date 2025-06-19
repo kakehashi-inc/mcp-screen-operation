@@ -255,8 +255,8 @@ MCP Inspectorは以下の機能を提供するWebベースのインターフェ�
   - 引数: `key` - キー名（例: 'enter', 'tab', 'space', 'a'）
   - 戻り値: キー押下情報
 
-- **`keyboard_hotkey(*keys: str)`**: ホットキーの組み合わせを押下
-  - 引数: `*keys` - 同時に押すキー（例: 'ctrl', 'c'）
+- **`keyboard_hotkey(keys: str)`**: ホットキーの組み合わせを押下
+  - 引数: `keys` - '+' で区切られた同時に押すキー（例: 'ctrl+c'）
   - 戻り値: ホットキー情報
 
 ## 統合例

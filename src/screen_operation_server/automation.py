@@ -136,6 +136,20 @@ def keyboard_hotkey(*keys: str) -> Dict[str, Any]:
     return {"keys": list(keys), "combination": "+".join(keys), "message": f"Pressed hotkey: {'+'.join(keys)}"}
 
 
+def keyboard_hotkey_from_list(keys: list) -> Dict[str, Any]:
+    """
+    Presses a keyboard hotkey combination from a list of keys.
+
+    Args:
+        keys: List of keys to press together (e.g., ['ctrl', 'c'] for Ctrl+C)
+
+    Returns:
+        Dictionary with hotkey information
+    """
+    pyautogui.hotkey(*keys)
+    return {"keys": keys, "combination": "+".join(keys), "message": f"Pressed hotkey: {'+'.join(keys)}"}
+
+
 def get_mouse_position() -> Dict[str, Any]:
     """
     Gets the current mouse position.

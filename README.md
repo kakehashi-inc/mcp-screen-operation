@@ -255,8 +255,8 @@ The MCP Inspector provides a web-based interface to:
   - Args: `key` - Key name (e.g., 'enter', 'tab', 'space', 'a')
   - Returns: Key press information
 
-- **`keyboard_hotkey(*keys: str)`**: Presses hotkey combination
-  - Args: `*keys` - Keys to press together (e.g., 'ctrl', 'c')
+- **`keyboard_hotkey(keys: str)`**: Presses hotkey combination
+  - Args: `keys` - Keys to press together, separated by '+' (e.g., 'ctrl+c')
   - Returns: Hotkey information
 
 ## Integration Examples

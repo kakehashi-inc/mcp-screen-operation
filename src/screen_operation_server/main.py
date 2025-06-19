@@ -170,17 +170,18 @@ async def keyboard_press(key: str) -> Dict[str, Any]:
 
 
 @mcp.tool()
-async def keyboard_hotkey(*keys: str) -> Dict[str, Any]:
+async def keyboard_hotkey(keys: str) -> Dict[str, Any]:
     """
     Presses a keyboard hotkey combination.
 
     Args:
-        *keys: Keys to press together (e.g., 'ctrl', 'c' for Ctrl+C).
+        keys: Keys to press together, separated by '+' (e.g., 'ctrl+c' for Ctrl+C).
 
     Returns:
         A dictionary with hotkey information.
     """
-    return automation.keyboard_hotkey(*keys)
+    key_list = [key.strip() for key in keys.split('+')]
+    return automation.keyboard_hotkey_from_list(key_list)
 
 
 @mcp.tool()
