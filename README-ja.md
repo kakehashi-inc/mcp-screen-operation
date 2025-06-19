@@ -13,6 +13,10 @@ FastMCPで構築され、複数のトランスポートプロトコルをサポ�
 - 開いているすべてのウィンドウのリスト取得
 - 特定のウィンドウのスクリーンショット撮影
 
+### 自動操作機能（将来の拡張予定）
+- pyautoguiによるクロスプラットフォーム自動操作機能
+- マウスとキーボードの自動操作サポート
+
 ### トランスポートプロトコル
 - **STDIO** (デフォルト) - ローカルツールとClaude Desktopの統合用
 - **SSE** (Server-Sent Events) - Webベースのデプロイメント用
@@ -87,6 +91,7 @@ pip install -e ".[dev,macos]"
 - `mcp>=1.9.4` - Model Context Protocolライブラリ
 - `mss` - クロスプラットフォームスクリーンショットライブラリ
 - `Pillow` - 画像処理
+- `pyautogui` - クロスプラットフォーム自動操作ライブラリ
 
 **プラットフォーム固有の依存関係**:
 - **Linux**: `python-xlib` - X11ウィンドウ管理
@@ -143,7 +148,7 @@ options:
   -h, --help            show this help message and exit
   --transport {stdio,sse,streamable-http}
                         Transport protocol to use (default: stdio)
-  --port PORT           Port for HTTP-based transports (default: 8080)
+  --port PORT           Port for HTTP-based transports (default: 8205)
   --host HOST           Host for HTTP-based transports (default: 127.0.0.1)
 ```
 
@@ -160,16 +165,16 @@ screen-operation-server --transport stdio
 #### Streamable HTTP (Web用推奨)
 Webデプロイメント用のモダンなHTTPベースプロトコル：
 ```bash
-screen-operation-server --transport streamable-http --port 8080
+screen-operation-server --transport streamable-http --port 8205
 ```
-アクセス先: `http://localhost:8080/mcp`
+アクセス先: `http://localhost:8205/mcp`
 
 #### SSE (レガシーWebサポート)
 レガシーWebデプロイメント用のServer-Sent Events：
 ```bash
-screen-operation-server --transport sse --port 8080
+screen-operation-server --transport sse --port 8205
 ```
-アクセス先: `http://localhost:8080/sse`
+アクセス先: `http://localhost:8205/sse`
 
 ### 開発モード
 
@@ -223,7 +228,7 @@ Claude DesktopのMCP設定に追加：
 Streamable HTTPの場合：
 ```javascript
 // MCPサーバーに接続
-const response = await fetch('http://localhost:8080/mcp', {
+const response = await fetch('http://localhost:8205/mcp', {
   method: 'POST',
   headers: { 'Content-Type': 'application/json' },
   body: JSON.stringify({
@@ -246,7 +251,7 @@ from fastmcp import FastMCP
 
 async def main():
     # HTTPサーバーに接続
-    client = FastMCP.create_client('http://localhost:8080/mcp')
+    client = FastMCP.create_client('http://localhost:8205/mcp')
 
     # スクリーン情報を取得
     result = await client.call_tool('get_screen_info', {})
@@ -301,7 +306,8 @@ screen-operation-server --help
 
 # 異なるトランスポートでテスト
 screen-operation-server --transport stdio
-screen-operation-server --transport streamable-http --port 8080
+screen-operation-server --transport sse --port 8205
+screen-operation-server --transport streamable-http --port 8205
 ```
 
 ### パッケージ管理

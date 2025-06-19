@@ -12,6 +12,7 @@ dependencies = [
     "fastmcp>=2.3.0",
     "mss",
     "Pillow",
+    "pyautogui"
 ]
 
 [project.optional-dependencies]

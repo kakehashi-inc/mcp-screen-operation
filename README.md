@@ -13,6 +13,10 @@ A modern Model Context Protocol (MCP) server for cross-platform screen and windo
 - Get a list of all open windows
 - Capture screenshots of specific windows
 
+### Automation Operations (Future Enhancement)
+- Cross-platform automation capabilities with pyautogui
+- Mouse and keyboard automation support
+
 ### Transport Protocols
 - **STDIO** (default) - For local tools and Claude Desktop integration
 - **SSE** (Server-Sent Events) - For web-based deployments
@@ -87,6 +91,7 @@ pip install -e ".[dev,macos]"
 - `mcp>=1.9.4` - Model Context Protocol library
 - `mss` - Cross-platform screenshot library
 - `Pillow` - Image processing
+- `pyautogui` - Cross-platform automation library
 
 **Platform-specific dependencies**:
 - **Linux**: `python-xlib` - X11 window management
@@ -143,7 +148,7 @@ options:
   -h, --help            show this help message and exit
   --transport {stdio,sse,streamable-http}
                         Transport protocol to use (default: stdio)
-  --port PORT           Port for HTTP-based transports (default: 8080)
+  --port PORT           Port for HTTP-based transports (default: 8205)
   --host HOST           Host for HTTP-based transports (default: 127.0.0.1)
 ```
 
@@ -160,16 +165,16 @@ screen-operation-server --transport stdio
 #### Streamable HTTP (Recommended for Web)
 Modern HTTP-based protocol for web deployments:
 ```bash
-screen-operation-server --transport streamable-http --port 8080
+screen-operation-server --transport streamable-http --port 8205
 ```
-Access at: `http://localhost:8080/mcp`
+Access at: `http://localhost:8205/mcp`
 
 #### SSE (Legacy Web Support)
 Server-Sent Events for legacy web deployments:
 ```bash
-screen-operation-server --transport sse --port 8080
+screen-operation-server --transport sse --port 8205
 ```
-Access at: `http://localhost:8080/sse`
+Access at: `http://localhost:8205/sse`
 
 ### Development Mode
 
@@ -223,7 +228,7 @@ Add to your Claude Desktop MCP configuration:
 For Streamable HTTP:
 ```javascript
 // Connect to the MCP server
-const response = await fetch('http://localhost:8080/mcp', {
+const response = await fetch('http://localhost:8205/mcp', {
   method: 'POST',
   headers: { 'Content-Type': 'application/json' },
   body: JSON.stringify({
@@ -246,7 +251,7 @@ from fastmcp import FastMCP
 
 async def main():
     # Connect to HTTP server
-    client = FastMCP.create_client('http://localhost:8080/mcp')
+    client = FastMCP.create_client('http://localhost:8205/mcp')
 
     # Get screen info
     result = await client.call_tool('get_screen_info', {})
@@ -301,7 +306,8 @@ screen-operation-server --help
 
 # Test with different transports
 screen-operation-server --transport stdio
-screen-operation-server --transport streamable-http --port 8080
+screen-operation-server --transport sse --port 8205
+screen-operation-server --transport streamable-http --port 8205
 ```
 
 ### Package Management

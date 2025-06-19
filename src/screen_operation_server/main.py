@@ -81,7 +81,7 @@ def main():
     # コマンドライン引数を解析
     parser = argparse.ArgumentParser(description="MCP Screen Operation Server")
     parser.add_argument("--transport", choices=["stdio", "sse", "streamable-http"], default="stdio", help="Transport protocol to use (default: stdio)")
-    parser.add_argument("--port", type=int, default=8080, help="Port for HTTP-based transports (default: 8080)")
+    parser.add_argument("--port", type=int, default=8205, help="Port for HTTP-based transports (default: 8205)")
     parser.add_argument("--host", default="127.0.0.1", help="Host for HTTP-based transports (default: 127.0.0.1)")
 
     args = parser.parse_args()
