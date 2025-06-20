@@ -192,10 +192,6 @@ You can use the MCP Inspector to test and debug your MCP server interactively:
 ```bash
 # Install and run MCP Inspector
 npx @modelcontextprotocol/inspector
-
-# Then connect to your server:
-# For STDIO transport: screen-operation-server
-# For HTTP transports: http://localhost:8205/mcp (or your configured port)
 ```
 
 The MCP Inspector provides a web-based interface to:

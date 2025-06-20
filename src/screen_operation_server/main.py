@@ -1,7 +1,7 @@
 import argparse
 from typing import Any, Dict, List
 
-from fastmcp import FastMCP
+from fastmcp import FastMCP, Context
 
 from . import operations, automation
 from .window_manager import WindowManagerFactory
@@ -11,18 +11,22 @@ mcp = FastMCP("screen-operation-server")
 
 
 @mcp.tool()
-async def get_screen_info() -> Dict[str, Any]:
+async def get_screen_info(ctx: Context) -> Dict[str, Any]:
     """
     Retrieves information about connected displays.
 
     Returns:
         A dictionary containing the number of monitors and details for each monitor.
     """
-    return operations.get_screen_info()
+    try:
+        return operations.get_screen_info()
+    except Exception as e:
+        await ctx.error(f"Error in get_screen_info: {e}")
+        raise
 
 
 @mcp.tool()
-async def capture_screen_by_number(monitor_number: int) -> Dict[str, Any]:
+async def capture_screen_by_number(monitor_number: int, ctx: Context) -> Dict[str, Any]:
     """
     Captures a screenshot of the specified monitor.
 
@@ -32,33 +36,45 @@ async def capture_screen_by_number(monitor_number: int) -> Dict[str, Any]:
     Returns:
         A dictionary containing the base64-encoded image and its mime type.
     """
-    return operations.capture_screen_by_number(monitor_number)
+    try:
+        return operations.capture_screen_by_number(monitor_number)
+    except Exception as e:
+        await ctx.error(f"Error in capture_screen_by_number: {e}")
+        raise
 
 
 @mcp.tool()
-async def capture_all_screens() -> Dict[str, Any]:
+async def capture_all_screens(ctx: Context) -> Dict[str, Any]:
     """
     Captures all connected monitors and stitches them into a single image.
 
     Returns:
         A dictionary containing the base64-encoded stitched image and its mime type.
     """
-    return operations.capture_all_screens()
+    try:
+        return operations.capture_all_screens()
+    except Exception as e:
+        await ctx.error(f"Error in capture_all_screens: {e}")
+        raise
 
 
 @mcp.tool()
-async def get_window_list() -> List[Dict[str, Any]]:
+async def get_window_list(ctx: Context) -> List[Dict[str, Any]]:
     """
     Retrieves a list of currently open windows.
 
     Returns:
         A list of dictionaries, each containing details about a window (id, title, size, position).
     """
-    return operations.get_window_list()
+    try:
+        return operations.get_window_list()
+    except Exception as e:
+        await ctx.error(f"Error in get_window_list: {e}")
+        raise
 
 
 @mcp.tool()
-async def capture_window(window_id: int) -> Dict[str, Any]:
+async def capture_window(window_id: int, ctx: Context) -> Dict[str, Any]:
     """
     Captures a screenshot of the specified window.
 
@@ -68,12 +84,16 @@ async def capture_window(window_id: int) -> Dict[str, Any]:
     Returns:
         A dictionary containing the base64-encoded image and its mime type.
     """
-    return operations.capture_window(window_id)
+    try:
+        return operations.capture_window(window_id)
+    except Exception as e:
+        await ctx.error(f"Error in capture_window: {e}")
+        raise
 
 
 # Mouse automation tools
 @mcp.tool()
-async def mouse_move(x: int, y: int, duration: float = 0.0) -> Dict[str, Any]:
+async def mouse_move(x: int, y: int, duration: float, ctx: Context) -> Dict[str, Any]:
     """
     Moves the mouse cursor to the specified coordinates.
 
@@ -85,11 +105,15 @@ async def mouse_move(x: int, y: int, duration: float = 0.0) -> Dict[str, Any]:
     Returns:
         A dictionary with the new mouse position.
     """
-    return automation.mouse_move(x, y, duration)
+    try:
+        return automation.mouse_move(x, y, duration)
+    except Exception as e:
+        await ctx.error(f"Error in mouse_move: {e}")
+        raise
 
 
 @mcp.tool()
-async def mouse_click(x: int, y: int, button: str = "left", clicks: int = 1) -> Dict[str, Any]:
+async def mouse_click(x: int, y: int, button: str, clicks: int, ctx: Context) -> Dict[str, Any]:
     """
     Clicks the mouse at the specified coordinates.
 
@@ -102,11 +126,15 @@ async def mouse_click(x: int, y: int, button: str = "left", clicks: int = 1) -> 
     Returns:
         A dictionary with click information.
     """
-    return automation.mouse_click(x, y, button, clicks)
+    try:
+        return automation.mouse_click(x, y, button, clicks)
+    except Exception as e:
+        await ctx.error(f"Error in mouse_click: {e}")
+        raise
 
 
 @mcp.tool()
-async def mouse_drag(start_x: int, start_y: int, end_x: int, end_y: int, duration: float = 0.5) -> Dict[str, Any]:
+async def mouse_drag(start_x: int, start_y: int, end_x: int, end_y: int, duration: float, ctx: Context) -> Dict[str, Any]:
     """
     Drags the mouse from start coordinates to end coordinates.
 
@@ -120,11 +148,15 @@ async def mouse_drag(start_x: int, start_y: int, end_x: int, end_y: int, duratio
     Returns:
         A dictionary with drag information.
     """
-    return automation.mouse_drag(start_x, start_y, end_x, end_y, duration)
+    try:
+        return automation.mouse_drag(start_x, start_y, end_x, end_y, duration)
+    except Exception as e:
+        await ctx.error(f"Error in mouse_drag: {e}")
+        raise
 
 
 @mcp.tool()
-async def mouse_scroll(clicks: int, x: int = None, y: int = None) -> Dict[str, Any]:
+async def mouse_scroll(clicks: int, x: int, y: int, ctx: Context) -> Dict[str, Any]:
     """
     Scrolls the mouse wheel.
 
@@ -136,12 +168,16 @@ async def mouse_scroll(clicks: int, x: int = None, y: int = None) -> Dict[str, A
     Returns:
         A dictionary with scroll information.
     """
-    return automation.mouse_scroll(clicks, x, y)
+    try:
+        return automation.mouse_scroll(clicks, x, y)
+    except Exception as e:
+        await ctx.error(f"Error in mouse_scroll: {e}")
+        raise
 
 
 # Keyboard automation tools
 @mcp.tool()
-async def keyboard_type(text: str, interval: float = 0.0) -> Dict[str, Any]:
+async def keyboard_type(text: str, interval: float, ctx: Context) -> Dict[str, Any]:
     """
     Types the specified text.
 
@@ -152,11 +188,15 @@ async def keyboard_type(text: str, interval: float = 0.0) -> Dict[str, Any]:
     Returns:
         A dictionary with typing information.
     """
-    return automation.keyboard_type(text, interval)
+    try:
+        return automation.keyboard_type(text, interval)
+    except Exception as e:
+        await ctx.error(f"Error in keyboard_type: {e}")
+        raise
 
 
 @mcp.tool()
-async def keyboard_press(key: str) -> Dict[str, Any]:
+async def keyboard_press(key: str, ctx: Context) -> Dict[str, Any]:
     """
     Presses a single key.
 
@@ -166,11 +206,15 @@ async def keyboard_press(key: str) -> Dict[str, Any]:
     Returns:
         A dictionary with key press information.
     """
-    return automation.keyboard_press(key)
+    try:
+        return automation.keyboard_press(key)
+    except Exception as e:
+        await ctx.error(f"Error in keyboard_press: {e}")
+        raise
 
 
 @mcp.tool()
-async def keyboard_hotkey(keys: str) -> Dict[str, Any]:
+async def keyboard_hotkey(keys: str, ctx: Context) -> Dict[str, Any]:
     """
     Presses a keyboard hotkey combination.
 
@@ -180,19 +224,27 @@ async def keyboard_hotkey(keys: str) -> Dict[str, Any]:
     Returns:
         A dictionary with hotkey information.
     """
-    key_list = [key.strip() for key in keys.split('+')]
-    return automation.keyboard_hotkey_from_list(key_list)
+    try:
+        key_list = [key.strip() for key in keys.split("+")]
+        return automation.keyboard_hotkey_from_list(key_list)
+    except Exception as e:
+        await ctx.error(f"Error in keyboard_hotkey: {e}")
+        raise
 
 
 @mcp.tool()
-async def get_mouse_position() -> Dict[str, Any]:
+async def get_mouse_position(ctx: Context) -> Dict[str, Any]:
     """
     Gets the current mouse position.
 
     Returns:
         A dictionary with current mouse coordinates and screen size.
     """
-    return automation.get_mouse_position()
+    try:
+        return automation.get_mouse_position()
+    except Exception as e:
+        await ctx.error(f"Error in get_mouse_position: {e}")
+        raise
 
 
 def main():
