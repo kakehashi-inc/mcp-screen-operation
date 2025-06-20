@@ -39,7 +39,21 @@ The server uses a clean, platform-agnostic architecture:
 
 ## Installation
 
-### Prerequisites
+### Quick Install from PyPI
+
+Once published to PyPI, you can install and run easily:
+
+```bash
+# Install with uv (recommended)
+uvx mcp-screen-operation  # Run directly without installation
+
+# Or install with pip
+pip install mcp-screen-operation[windows]  # Replace 'windows' with your platform
+```
+
+### Install from Source
+
+#### Prerequisites
 
 Create and activate a virtual environment:
 
@@ -151,6 +165,13 @@ options:
                         Transport protocol to use (default: stdio)
   --port PORT           Port for HTTP-based transports (default: 8205)
   --host HOST           Host for HTTP-based transports (default: 127.0.0.1)
+```
+
+### Command Examples
+
+```bash
+# Check version
+screen-operation-server --version
 ```
 
 ### Running with Different Transports
@@ -272,6 +293,19 @@ Add to your Claude Desktop MCP configuration:
 }
 ```
 
+Or after PyPI publication, use uvx for automatic installation:
+
+```json
+{
+  "mcpServers": {
+    "screen-operation": {
+      "command": "uvx",
+      "args": ["mcp-screen-operation"]
+    }
+  }
+}
+```
+
 ### Web Application Integration
 
 For Streamable HTTP:
@@ -359,26 +393,9 @@ screen-operation-server --transport sse --port 8205
 screen-operation-server --transport streamable-http --port 8205
 ```
 
-### Package Management
-
-This project uses `pyproject.toml` for dependency management instead of `requirements.txt` files. Benefits include:
-
-- **Single source of dependencies**: All dependencies defined in `pyproject.toml`
-- **Editable installs**: Use `pip install -e ".[extras]"` for development
-- **Platform-specific dependencies**: Automatic handling via optional dependencies
-- **Modern Python packaging**: Following PEP 518/621 standards
-
 ### Available Extras
 
 - `linux`: Linux platform dependencies (`python-xlib`)
 - `windows`: Windows platform dependencies (`pywin32`)
 - `macos`: macOS platform dependencies (`PyObjC` frameworks)
 - `dev`: Development tools (`pylint`, `black`)
-
-### Key Design Principles
-
-1. **Platform Abstraction**: `WindowManager` interface isolates platform-specific code
-2. **Transport Flexibility**: Single codebase supports multiple MCP transports
-3. **Dependency Safety**: Automatic platform dependency validation
-4. **Clean Architecture**: Clear separation between operations and platform details
-5. **Modern Packaging**: Uses `pyproject.toml` for all configuration

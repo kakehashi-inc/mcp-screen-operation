@@ -1,10 +1,17 @@
 import argparse
 from typing import Any, Dict, List
+from importlib.metadata import version, PackageNotFoundError
 
 from fastmcp import FastMCP, Context
 
 from . import operations, automation
 from .window_manager import WindowManagerFactory
+
+# バージョン情報を取得
+try:
+    __version__ = version("mcp-screen-operation")
+except PackageNotFoundError:
+    __version__ = "0.0.0+dev"
 
 # FastMCPインスタンスを作成
 mcp = FastMCP("screen-operation-server")
@@ -259,10 +266,11 @@ def main():
     parser.add_argument("--transport", choices=["stdio", "sse", "streamable-http"], default="stdio", help="Transport protocol to use (default: stdio)")
     parser.add_argument("--port", type=int, default=8205, help="Port for HTTP-based transports (default: 8205)")
     parser.add_argument("--host", default="127.0.0.1", help="Host for HTTP-based transports (default: 127.0.0.1)")
+    parser.add_argument("--version", action="version", version=f"%(prog)s {__version__}")
 
     args = parser.parse_args()
 
-    print(f"Starting {mcp.name} v0.1.0 with {args.transport} transport...")
+    print(f"Starting {mcp.name} v{__version__} with {args.transport} transport...")
 
     try:
         if args.transport == "stdio":

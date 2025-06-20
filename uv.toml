@@ -1,0 +1,10 @@
+[project]
+name = "mcp-screen-operation"
+package = true
+
+[tool.uv]
+dev-dependencies = [
+    "build>=1.0.0",
+    "twine>=5.0.0",
+    "wheel>=0.42.0",
+]

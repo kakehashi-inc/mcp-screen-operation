@@ -185,6 +185,7 @@ cython_debug/
 
 # PyPI configuration file
 .pypirc
+PyPI_PUBLISHING.md
 
 # Cursor
 #  Cursor is an AI-powered code editor. `.cursorignore` specifies files/directories to
@@ -202,6 +203,7 @@ Desktop.ini
 
 # Project files
 requirements.txt.md5
+DEVELOPMENT_NOTES.md
 
 # Etc
 *.cache.sqlite*

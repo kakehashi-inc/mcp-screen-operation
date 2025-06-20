@@ -39,7 +39,21 @@ FastMCPで構築され、複数のトランスポートプロトコルをサポ�
 
 ## インストール
 
-### 前提条件
+### PyPIからのクイックインストール
+
+PyPIに公開された後は、簡単にインストールして実行できます：
+
+```bash
+# uv を使用（推奨）
+uvx mcp-screen-operation  # インストールせずに直接実行
+
+# または pip を使用
+pip install mcp-screen-operation[windows]  # 'windows' をあなたのプラットフォームに置き換え
+```
+
+### ソースからのインストール
+
+#### 前提条件
 
 仮想環境を作成して有効化します：
 
@@ -151,6 +165,13 @@ options:
                         Transport protocol to use (default: stdio)
   --port PORT           Port for HTTP-based transports (default: 8205)
   --host HOST           Host for HTTP-based transports (default: 127.0.0.1)
+```
+
+### コマンド例
+
+```bash
+# バージョンを確認
+screen-operation-server --version
 ```
 
 ### 異なるトランスポートでの実行
@@ -272,6 +293,19 @@ Claude DesktopのMCP設定に追加：
 }
 ```
 
+または、PyPI公開後は自動インストール用にuvxを使用：
+
+```json
+{
+  "mcpServers": {
+    "screen-operation": {
+      "command": "uvx",
+      "args": ["mcp-screen-operation"]
+    }
+  }
+}
+```
+
 ### Webアプリケーション統合
 
 Streamable HTTPの場合：
@@ -359,26 +393,9 @@ screen-operation-server --transport sse --port 8205
 screen-operation-server --transport streamable-http --port 8205
 ```
 
-### パッケージ管理
-
-このプロジェクトは`requirements.txt`ファイルの代わりに`pyproject.toml`を依存関係管理に使用しています。利点は以下の通りです：
-
-- **依存関係の単一ソース**: すべての依存関係が`pyproject.toml`で定義
-- **編集可能インストール**: 開発用に`pip install -e ".[extras]"`を使用
-- **プラットフォーム固有の依存関係**: オプショナル依存関係による自動処理
-- **モダンなPythonパッケージング**: PEP 518/621標準に準拠
-
 ### 利用可能なエクストラ
 
 - `linux`: Linuxプラットフォーム依存関係（`python-xlib`）
 - `windows`: Windowsプラットフォーム依存関係（`pywin32`）
 - `macos`: macOSプラットフォーム依存関係（`PyObjC`フレームワーク）
 - `dev`: 開発ツール（`pylint`, `black`）
-
-### 主要な設計原則
-
-1. **プラットフォーム抽象化**: `WindowManager`インターフェースがプラットフォーム固有のコードを分離
-2. **トランスポート柔軟性**: 単一のコードベースで複数のMCPトランスポートをサポート
-3. **依存関係安全性**: プラットフォーム依存関係の自動検証
-4. **クリーンアーキテクチャ**: 操作とプラットフォーム詳細の明確な分離
-5. **モダンパッケージング**: すべての設定に`pyproject.toml`を使用

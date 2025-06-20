@@ -6,6 +6,18 @@ authors = [{ name = "kakehashi", email = "develop@kakehashi-services.com" }]
 readme = "README.md"
 requires-python = ">=3.10"
 license = { file = "LICENSE" }
+keywords = ["mcp", "automation", "screen-capture", "window-management", "cross-platform"]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: Developers",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Topic :: Software Development :: Libraries :: Python Modules",
+]
 
 dependencies = [
     "mcp>=1.9.4",
@@ -14,6 +26,11 @@ dependencies = [
     "Pillow",
     "pyautogui"
 ]
+
+[project.urls]
+"Homepage" = "https://github.com/kakehashi/mcp-screen-operation"
+"Bug Tracker" = "https://github.com/kakehashi/mcp-screen-operation/issues"
+"Documentation" = "https://github.com/kakehashi/mcp-screen-operation#readme"
 
 [project.optional-dependencies]
 linux = ["python-xlib"]
@@ -49,6 +66,10 @@ max-statements = 60
 disable = [
     "W0718",
 ]
+
+[build-system]
+requires = ["setuptools>=61.0", "wheel"]
+build-backend = "setuptools.build_meta"
 
 [tool.setuptools.packages.find]
 where = ["src"]
