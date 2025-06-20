@@ -202,8 +202,8 @@ Thumbs.db
 Desktop.ini
 
 # Project files
-requirements.txt.md5
 DEVELOPMENT_NOTES.md
+.uv-cache/
 
 # Etc
 *.cache.sqlite*

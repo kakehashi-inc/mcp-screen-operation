@@ -46,6 +46,17 @@ dev = [
 [project.scripts]
 screen-operation-server = "screen_operation_server.main:main"
 
+[build-system]
+requires = ["setuptools>=61.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[tool.uv]
+dev-dependencies = [
+    "build>=1.0.0",
+    "twine>=5.0.0",
+    "wheel>=0.42.0",
+]
+
 [tool.black]
 line-length = 160
 exclude = 'tests/'
@@ -66,10 +77,6 @@ max-statements = 60
 disable = [
     "W0718",
 ]
-
-[build-system]
-requires = ["setuptools>=61.0", "wheel"]
-build-backend = "setuptools.build_meta"
 
 [tool.setuptools.packages.find]
 where = ["src"]
