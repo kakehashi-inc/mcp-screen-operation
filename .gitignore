@@ -185,7 +185,6 @@ cython_debug/
 
 # PyPI configuration file
 .pypirc
-PyPI_PUBLISHING.md
 
 # Cursor
 #  Cursor is an AI-powered code editor. `.cursorignore` specifies files/directories to
@@ -202,7 +201,6 @@ Thumbs.db
 Desktop.ini
 
 # Project files
-DEVELOPMENT_NOTES.md
 .uv-cache/
 dist.backup/
 *.egg-info.backup/

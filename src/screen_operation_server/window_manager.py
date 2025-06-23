@@ -57,7 +57,7 @@ class LinuxWindowManager(WindowManager):
     @classmethod
     def get_error_message(cls) -> str:
         """Get Linux-specific error message."""
-        return "Error: python-xlib is not installed. Please run 'pip install \"mcp-screen-operation[linux]\"'"
+        return "Error: python-xlib is not installed."
 
     def get_window_list(self) -> List[Dict[str, Any]]:
         """Get a list of all visible windows on Linux."""
@@ -126,7 +126,7 @@ class WindowsWindowManager(WindowManager):
     @classmethod
     def get_error_message(cls) -> str:
         """Get Windows-specific error message."""
-        return "Error: pywin32 is not installed. Please run 'pip install \"mcp-screen-operation[windows]\"'"
+        return "Error: pywin32 is not installed."
 
     def get_window_list(self) -> List[Dict[str, Any]]:
         """Get a list of all visible windows on Windows."""
@@ -178,7 +178,7 @@ class MacOSWindowManager(WindowManager):
     @classmethod
     def get_error_message(cls) -> str:
         """Get macOS-specific error message."""
-        return "Error: PyObjC is not installed. Please run 'pip install \"mcp-screen-operation[macos]\"'"
+        return "Error: PyObjC is not installed."
 
     def get_window_list(self) -> List[Dict[str, Any]]:
         """Get a list of all visible windows on macOS."""

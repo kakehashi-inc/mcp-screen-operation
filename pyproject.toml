@@ -1,6 +1,6 @@
 [project]
 name = "mcp-screen-operation"
-version = "0.1.2"
+version = "0.1.4"
 description = "MCP server for screen and window operations."
 authors = [{ name = "kakehashi" }]
 readme = "README.md"
@@ -24,7 +24,11 @@ dependencies = [
     "fastmcp>=2.3.0",
     "mss",
     "Pillow",
-    "pyautogui"
+    "pyautogui",
+    "pywin32; sys_platform == 'win32'",
+    "python-xlib; sys_platform == 'linux'",
+    "pyobjc-framework-Quartz; sys_platform == 'darwin'",
+    "pyobjc-framework-Cocoa; sys_platform == 'darwin'"
 ]
 
 [project.urls]
@@ -33,14 +37,16 @@ dependencies = [
 "Documentation" = "https://github.com/kakehashi/mcp-screen-operation#readme"
 
 [project.optional-dependencies]
-linux = ["python-xlib"]
-windows = ["pywin32"]
-macos = ["pyobjc-framework-Quartz", "pyobjc-framework-Cocoa"]
 dev = [
     "pylint",
     "pylint-plugin-utils",
     "pylint-mcp",
     "black"
+]
+build = [
+    "build>=1.0.0",
+    "twine>=5.0.0",
+    "wheel>=0.42.0"
 ]
 
 [project.scripts]

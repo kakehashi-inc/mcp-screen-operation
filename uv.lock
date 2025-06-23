@@ -558,7 +558,7 @@ cli = [
 
 [[package]]
 name = "mcp-screen-operation"
-version = "0.1.1"
+version = "0.1.4"
 source = { editable = "." }
 dependencies = [
     { name = "fastmcp" },
@@ -566,24 +566,23 @@ dependencies = [
     { name = "mss" },
     { name = "pillow" },
     { name = "pyautogui" },
+    { name = "pyobjc-framework-cocoa", marker = "sys_platform == 'darwin'" },
+    { name = "pyobjc-framework-quartz", marker = "sys_platform == 'darwin'" },
+    { name = "python-xlib", marker = "sys_platform == 'linux'" },
+    { name = "pywin32", marker = "sys_platform == 'win32'" },
 ]
 
 [package.optional-dependencies]
+build = [
+    { name = "build" },
+    { name = "twine" },
+    { name = "wheel" },
+]
 dev = [
     { name = "black" },
     { name = "pylint" },
     { name = "pylint-mcp" },
     { name = "pylint-plugin-utils" },
-]
-linux = [
-    { name = "python-xlib" },
-]
-macos = [
-    { name = "pyobjc-framework-cocoa" },
-    { name = "pyobjc-framework-quartz" },
-]
-windows = [
-    { name = "pywin32" },
 ]
 
 [package.dev-dependencies]
@@ -596,6 +595,7 @@ dev = [
 [package.metadata]
 requires-dist = [
     { name = "black", marker = "extra == 'dev'" },
+    { name = "build", marker = "extra == 'build'", specifier = ">=1.0.0" },
     { name = "fastmcp", specifier = ">=2.3.0" },
     { name = "mcp", specifier = ">=1.9.4" },
     { name = "mss" },
@@ -604,12 +604,14 @@ requires-dist = [
     { name = "pylint", marker = "extra == 'dev'" },
     { name = "pylint-mcp", marker = "extra == 'dev'" },
     { name = "pylint-plugin-utils", marker = "extra == 'dev'" },
-    { name = "pyobjc-framework-cocoa", marker = "extra == 'macos'" },
-    { name = "pyobjc-framework-quartz", marker = "extra == 'macos'" },
-    { name = "python-xlib", marker = "extra == 'linux'" },
-    { name = "pywin32", marker = "extra == 'windows'" },
+    { name = "pyobjc-framework-cocoa", marker = "sys_platform == 'darwin'" },
+    { name = "pyobjc-framework-quartz", marker = "sys_platform == 'darwin'" },
+    { name = "python-xlib", marker = "sys_platform == 'linux'" },
+    { name = "pywin32", marker = "sys_platform == 'win32'" },
+    { name = "twine", marker = "extra == 'build'", specifier = ">=5.0.0" },
+    { name = "wheel", marker = "extra == 'build'", specifier = ">=0.42.0" },
 ]
-provides-extras = ["linux", "windows", "macos", "dev"]
+provides-extras = ["dev", "build"]
 
 [package.metadata.requires-dev]
 dev = [

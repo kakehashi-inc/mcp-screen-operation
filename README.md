@@ -48,7 +48,7 @@ Once published to PyPI, you can install and run easily:
 uvx mcp-screen-operation  # Run directly without installation
 
 # Or install with pip
-pip install mcp-screen-operation[windows]  # Replace 'windows' with your platform
+pip install mcp-screen-operation
 ```
 
 ### Install from Source
@@ -74,14 +74,7 @@ Install the project in editable mode with platform-specific dependencies:
 #### For Production Use
 
 ```bash
-# Linux
-pip install -e ".[linux]"
-
-# Windows
-pip install -e ".[windows]"
-
-# macOS
-pip install -e ".[macos]"
+pip install -e "."
 ```
 
 #### For Development
@@ -89,14 +82,7 @@ pip install -e ".[macos]"
 Install with development tools included:
 
 ```bash
-# Linux development environment
-pip install -e ".[dev,linux]"
-
-# Windows development environment
-pip install -e ".[dev,windows]"
-
-# macOS development environment
-pip install -e ".[dev,macos]"
+pip install -e ".[dev]"
 ```
 
 ### Dependencies
@@ -128,7 +114,7 @@ git clone <repository-url>
 cd mcp-screen-operation
 python -m venv venv
 .\venv\Scripts\Activate.ps1  # Windows
-pip install -e ".[windows]"
+pip install -e "."
 ```
 
 #### Developer Setup
@@ -138,7 +124,7 @@ git clone <repository-url>
 cd mcp-screen-operation
 python -m venv venv
 .\venv\Scripts\Activate.ps1  # Windows
-pip install -e ".[dev,windows]"
+pip install -e ".[dev]"
 
 # Run development tools
 black src/
@@ -202,7 +188,6 @@ Access at: `http://localhost:8205/sse`
 
 Use FastMCP's development mode with inspector:
 ```bash
-# After installing with: pip install -e ".[dev,windows]"
 fastmcp dev src/screen_operation_server/main.py
 ```
 
@@ -370,7 +355,7 @@ python -m venv venv
 source venv/bin/activate
 
 # Install in development mode
-pip install -e ".[dev,windows]"  # Replace 'windows' with your platform
+pip install -e ".[dev]"
 ```
 
 2. **Code formatting and linting:**
@@ -392,10 +377,3 @@ mcp-screen-operation --transport stdio
 mcp-screen-operation --transport sse --port 8205
 mcp-screen-operation --transport streamable-http --port 8205
 ```
-
-### Available Extras
-
-- `linux`: Linux platform dependencies (`python-xlib`)
-- `windows`: Windows platform dependencies (`pywin32`)
-- `macos`: macOS platform dependencies (`PyObjC` frameworks)
-- `dev`: Development tools (`pylint`, `black`)

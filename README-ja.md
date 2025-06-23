@@ -48,7 +48,7 @@ PyPIに公開された後は、簡単にインストールして実行できま�
 uvx mcp-screen-operation  # インストールせずに直接実行
 
 # または pip を使用
-pip install mcp-screen-operation[windows]  # 'windows' をあなたのプラットフォームに置き換え
+pip install mcp-screen-operation
 ```
 
 ### ソースからのインストール
@@ -74,14 +74,7 @@ source venv/bin/activate
 #### 本番利用の場合
 
 ```bash
-# Linux
-pip install -e ".[linux]"
-
-# Windows
-pip install -e ".[windows]"
-
-# macOS
-pip install -e ".[macos]"
+pip install -e "."
 ```
 
 #### 開発用の場合
@@ -89,14 +82,7 @@ pip install -e ".[macos]"
 開発ツールを含めてインストールします：
 
 ```bash
-# Linux 開発環境
-pip install -e ".[dev,linux]"
-
-# Windows 開発環境
-pip install -e ".[dev,windows]"
-
-# macOS 開発環境
-pip install -e ".[dev,macos]"
+pip install -e ".[dev]"
 ```
 
 ### 依存関係
@@ -128,7 +114,7 @@ git clone <repository-url>
 cd mcp-screen-operation
 python -m venv venv
 .\venv\Scripts\Activate.ps1  # Windows
-pip install -e ".[windows]"
+pip install -e "."
 ```
 
 #### 開発者セットアップ
@@ -138,7 +124,7 @@ git clone <repository-url>
 cd mcp-screen-operation
 python -m venv venv
 .\venv\Scripts\Activate.ps1  # Windows
-pip install -e ".[dev,windows]"
+pip install -e ".[dev]"
 
 # 開発ツールを実行
 black src/
@@ -202,7 +188,6 @@ mcp-screen-operation --transport sse --port 8205
 
 FastMCPの開発モードをインスペクターと共に使用：
 ```bash
-# pip install -e ".[dev,windows]" でインストール後
 fastmcp dev src/screen_operation_server/main.py
 ```
 
@@ -370,7 +355,7 @@ python -m venv venv
 source venv/bin/activate
 
 # 開発モードでインストール
-pip install -e ".[dev,windows]"  # 'windows'をあなたのプラットフォームに置き換え
+pip install -e ".[dev]"
 ```
 
 2. **コードフォーマッティングとリンティング:**
@@ -392,10 +377,3 @@ mcp-screen-operation --transport stdio
 mcp-screen-operation --transport sse --port 8205
 mcp-screen-operation --transport streamable-http --port 8205
 ```
-
-### 利用可能なエクストラ
-
-- `linux`: Linuxプラットフォーム依存関係（`python-xlib`）
-- `windows`: Windowsプラットフォーム依存関係（`pywin32`）
-- `macos`: macOSプラットフォーム依存関係（`PyObjC`フレームワーク）
-- `dev`: 開発ツール（`pylint`, `black`）
