@@ -1,6 +1,6 @@
 [project]
 name = "mcp-screen-operation"
-version = "0.1.4"
+version = "0.1.3"
 description = "MCP server for screen and window operations."
 authors = [{ name = "kakehashi" }]
 readme = "README.md"
