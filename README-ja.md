@@ -150,12 +150,12 @@ pylint src/
 ### コマンドラインオプション
 
 ```bash
-screen-operation-server --help
+mcp-screen-operation --help
 ```
 
 ```
-usage: screen-operation-server [-h] [--transport {stdio,sse,streamable-http}]
-                               [--port PORT] [--host HOST]
+usage: mcp-screen-operation [-h] [--transport {stdio,sse,streamable-http}]
+                            [--port PORT] [--host HOST]
 
 MCP Screen Operation Server
 
@@ -171,7 +171,7 @@ options:
 
 ```bash
 # バージョンを確認
-screen-operation-server --version
+mcp-screen-operation --version
 ```
 
 ### 異なるトランスポートでの実行
@@ -179,22 +179,22 @@ screen-operation-server --version
 #### STDIO (デフォルト)
 ローカルツールとClaude Desktop統合に最適：
 ```bash
-screen-operation-server
+mcp-screen-operation
 # または明示的に
-screen-operation-server --transport stdio
+mcp-screen-operation --transport stdio
 ```
 
 #### Streamable HTTP (Web用推奨)
 Webデプロイメント用のモダンなHTTPベースプロトコル：
 ```bash
-screen-operation-server --transport streamable-http --port 8205
+mcp-screen-operation --transport streamable-http --port 8205
 ```
 アクセス先: `http://localhost:8205/mcp`
 
 #### SSE (レガシーWebサポート)
 レガシーWebデプロイメント用のServer-Sent Events：
 ```bash
-screen-operation-server --transport sse --port 8205
+mcp-screen-operation --transport sse --port 8205
 ```
 アクセス先: `http://localhost:8205/sse`
 
@@ -286,7 +286,7 @@ Claude DesktopのMCP設定に追加：
 {
   "mcpServers": {
     "screen-operation": {
-      "command": "screen-operation-server",
+      "command": "mcp-screen-operation",
       "args": []
     }
   }
@@ -385,12 +385,12 @@ pylint src/
 3. **開発中のテスト:**
 ```bash
 # サーバーをテスト
-screen-operation-server --help
+mcp-screen-operation --help
 
 # 異なるトランスポートでテスト
-screen-operation-server --transport stdio
-screen-operation-server --transport sse --port 8205
-screen-operation-server --transport streamable-http --port 8205
+mcp-screen-operation --transport stdio
+mcp-screen-operation --transport sse --port 8205
+mcp-screen-operation --transport streamable-http --port 8205
 ```
 
 ### 利用可能なエクストラ

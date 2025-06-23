@@ -150,12 +150,12 @@ pylint src/
 ### Command Line Options
 
 ```bash
-screen-operation-server --help
+mcp-screen-operation --help
 ```
 
 ```
-usage: screen-operation-server [-h] [--transport {stdio,sse,streamable-http}]
-                               [--port PORT] [--host HOST]
+usage: mcp-screen-operation [-h] [--transport {stdio,sse,streamable-http}]
+                            [--port PORT] [--host HOST]
 
 MCP Screen Operation Server
 
@@ -171,7 +171,7 @@ options:
 
 ```bash
 # Check version
-screen-operation-server --version
+mcp-screen-operation --version
 ```
 
 ### Running with Different Transports
@@ -179,22 +179,22 @@ screen-operation-server --version
 #### STDIO (Default)
 Perfect for local tools and Claude Desktop integration:
 ```bash
-screen-operation-server
+mcp-screen-operation
 # or explicitly
-screen-operation-server --transport stdio
+mcp-screen-operation --transport stdio
 ```
 
 #### Streamable HTTP (Recommended for Web)
 Modern HTTP-based protocol for web deployments:
 ```bash
-screen-operation-server --transport streamable-http --port 8205
+mcp-screen-operation --transport streamable-http --port 8205
 ```
 Access at: `http://localhost:8205/mcp`
 
 #### SSE (Legacy Web Support)
 Server-Sent Events for legacy web deployments:
 ```bash
-screen-operation-server --transport sse --port 8205
+mcp-screen-operation --transport sse --port 8205
 ```
 Access at: `http://localhost:8205/sse`
 
@@ -286,7 +286,7 @@ Add to your Claude Desktop MCP configuration:
 {
   "mcpServers": {
     "screen-operation": {
-      "command": "screen-operation-server",
+      "command": "mcp-screen-operation",
       "args": []
     }
   }
@@ -385,12 +385,12 @@ pylint src/
 3. **Testing during development:**
 ```bash
 # Test the server
-screen-operation-server --help
+mcp-screen-operation --help
 
 # Test with different transports
-screen-operation-server --transport stdio
-screen-operation-server --transport sse --port 8205
-screen-operation-server --transport streamable-http --port 8205
+mcp-screen-operation --transport stdio
+mcp-screen-operation --transport sse --port 8205
+mcp-screen-operation --transport streamable-http --port 8205
 ```
 
 ### Available Extras

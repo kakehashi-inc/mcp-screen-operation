@@ -204,6 +204,8 @@ Desktop.ini
 # Project files
 DEVELOPMENT_NOTES.md
 .uv-cache/
+dist.backup/
+*.egg-info.backup/
 
 # Etc
 *.cache.sqlite*
