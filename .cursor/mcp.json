@@ -1,5 +1,15 @@
 {
   "mcpServers": {
+    "serena": {
+      "command": "uvx",
+      "args": [
+        "--from", "git+https://github.com/oraios/serena",
+        "serena",
+        "start-mcp-server",
+        "--context", "ide-assistant",
+        "--project", "."
+      ]
+    },
     "screen-operation": {
       "url": "http://localhost:8205/sse"
     }
